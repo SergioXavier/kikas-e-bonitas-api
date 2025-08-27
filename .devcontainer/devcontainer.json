@@ -1,8 +1,16 @@
 {
   "name": "Kikas e Bonitas API",
-  "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
-  "features": {
-    "ghcr.io/devcontainers/features/git:1": {}
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [5000, 3306],
+  "portsAttributes": {
+    "5000": { "label": "Kikas e Bonitas API", "onAutoForward": "openBrowser" },
+    "3306": { "label": "MySQL" }
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y mysql-client && dotnet tool install --global dotnet-ef",
+  "containerEnv": {
+    "PATH": "/home/vscode/.dotnet/tools:${containerEnv:PATH}"
   },
   "customizations": {
     "vscode": {
@@ -13,12 +21,5 @@
         "ms-azuretools.vscode-docker"
       ]
     }
-  },
-  "containerEnv": {
-    "ASPNETCORE_URLS": "http://0.0.0.0:8080"
-  },
-  "forwardPorts": [8080],
-  "portsAttributes": {
-    "8080": { "label": "Kikas e Bonitas API", "onAutoForward": "openBrowser" }
   }
 }
