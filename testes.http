@@ -1,0 +1,41 @@
+@host = http://localhost:5287
+
+### Teste 1: Obter todos os produtos (GET)
+GET {{host}}/api/produtos
+
+###
+
+### Teste 2: Criar um novo produto (POST)
+POST {{host}}/api/produtos
+Content-Type: application/json
+
+{
+  "nome": "Óleo Essencial de Alfazema 10ml",
+  "categoria": "Naturais",
+  "preco": 12.90,
+  "stock": 20
+}
+
+### Teste 3: Obter produto por ID existente (GET)
+GET {{host}}/api/produtos/1
+
+###
+
+### Teste 4: Testar produto inexistente (404 NOT FOUND)
+GET {{host}}/api/produtos/99
+
+### Teste 5: Atualizar um produto existente (PUT)
+PUT {{host}}/api/produtos/1
+Content-Type: application/json
+
+{
+  "nome": "Sérum Facial de Rosa Mosqueta - Edição Especial",
+  "categoria": "Cosmética",
+  "preco": 21.00,
+  "stock": 10
+}
+
+###
+
+### Teste 6: Apagar um produto (DELETE)
+DELETE {{host}}/api/produtos/2
