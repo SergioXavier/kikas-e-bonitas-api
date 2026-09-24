@@ -117,7 +117,8 @@ public static class ProdutoEndpoints
 
             return Results.Created($"/api/produtos/{novoProduto.Id}", novoProduto);
         })
-        .WithParameterValidation();
+        .WithParameterValidation()
+        .RequireAuthorization();
 
         // PUT: Atualizar Produto
         group.MapPut("/{id:int}", async (int id, CriarProdutoDto dto, AppDbContext db) =>
@@ -144,7 +145,8 @@ public static class ProdutoEndpoints
 
             return Results.Ok(produtoExistente);
         })
-        .WithParameterValidation();
+        .WithParameterValidation()
+        .RequireAuthorization();
 
         // DELETE: Apagar Produto
         group.MapDelete("/{id:int}", async (int id, AppDbContext db) =>
@@ -160,6 +162,7 @@ public static class ProdutoEndpoints
             await db.SaveChangesAsync();
 
             return Results.NoContent();
-        });
+        })
+        .RequireAuthorization();;
     }
 }

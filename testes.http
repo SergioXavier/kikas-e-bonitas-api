@@ -109,3 +109,50 @@ GET {{host}}/api/produtos?categoriaId=1
 
 ### Teste Combinado: Pesquisar por nome E filtrar por Categoria com Paginação
 GET {{host}}/api/produtos?nome=Óleo&categoriaId=3&pagina=1&tamanhoPagina=5
+
+###
+
+### Teste Exception Handler: Simular Erro 500 no Servidor
+GET {{host}}/api/teste-erro
+
+###
+
+### 1. Obter Token de Login (Admin)
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "usuario": "admin",
+  "senha": "Admin123!"
+}
+
+### Guardar o token gerado numa variável do testes.http
+@authToken = {{login.response.body.token}}
+
+###
+
+### 2. Tentar criar produto SEM Token (Devolve 401 Unauthorized)
+POST {{host}}/api/produtos
+Content-Type: application/json
+
+{
+  "nome": "Produto Não Autorizado",
+  "preco": 10.00,
+  "stock": 5,
+  "categoriaId": 1
+}
+
+###
+
+### 3. Criar produto COM Token JWT Válido (Sucesso)
+POST {{host}}/api/produtos
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "nome": "Creme Hidratante Corporal 200ml",
+  "preco": 14.50,
+  "stock": 30,
+  "categoriaId": 1
+}
