@@ -15,7 +15,7 @@ public static class CatagoriaEndpoints
         // GET: Listar todas as categorias com a contagem de produtos associados
         group.MapGet("/", async (AppDbContext db) =>
         {
-            var categorias = db.Categorias
+            var categorias = await db.Categorias
                 .Select (c => new CategoriaRespostaDto
                 {
                     Id = c.Id,

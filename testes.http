@@ -156,3 +156,46 @@ Content-Type: application/json
   "stock": 30,
   "categoriaId": 1
 }
+###
+
+### Teste Encomendas 1: Criar Encomenda com Sucesso (Deve abater o stock do produto)
+POST {{host}}/api/encomendas
+Content-Type: application/json
+
+{
+  "nomeCliente": "Ana Rodrigues",
+  "emailCliente": "ana.rodrigues@email.com",
+  "itens": [
+    {
+      "produtoId": 2,
+      "quantidade": 2
+    }
+  ]
+}
+
+###
+
+### Teste Encomendas 2: Tentar Criar Encomenda com Stock Insuficiente (Deve devolver 400 Bad Request)
+POST {{host}}/api/encomendas
+Content-Type: application/json
+
+{
+  "nomeCliente": "Carlos Silva",
+  "emailCliente": "carlos.silva@email.com",
+  "itens": [
+    {
+      "produtoId": 2,
+      "quantidade": 999
+    }
+  ]
+}
+
+###
+
+### Teste Encomendas 3: Listar todas as Encomendas (Com detalhes de itens e produtos)
+GET {{host}}/api/encomendas
+
+###
+
+### Teste Encomendas 4: Obter Encomenda por ID específico
+GET {{host}}/api/encomendas/1

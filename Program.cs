@@ -68,6 +68,7 @@ app.MapGet("/", () => "Bem-vindo à API da Kikas e Bonitas!");
 app.MapAuthEndpoints(builder.Configuration);
 app.MapProdutosEndpoints();
 app.MapCategoriasEndpoints();
+app.MapEncomendaEndpoints();
 
 // 4. INICIAR O SERVIDOR
 app.Run();
